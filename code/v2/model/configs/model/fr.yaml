@@ -1,0 +1,13 @@
+# Model that only uses financial ratios
+_target_: src.models.models.FrModel
+
+use_finratios: true
+use_mantxts: true
+
+# in_dim is the dim of the input features, out_dim is the dim of t_and_aux.
+# e.g., ['in_dim', '2*in_dim', 'out_dim'] results in two hidden layers: (in_dim->2*in_dim) and (2*in_dim->out_dim)
+# this does NOT include final fc layer!
+hidden_sizes: ['in_dim', 'in_dim'] 
+
+# the last element of dropouts is for the final output FC layer!
+dropouts: [0, 0.1]

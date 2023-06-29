@@ -1,0 +1,24 @@
+# DataModule with ONLY financial ratios
+_target_: src.datamodules.datamodules.FrDataModule
+
+# train/val/test split
+split_id: ???
+split_df_name: ???
+
+# tasks
+tasks: ???
+tx_df_name: ???
+
+# dataloader 
+pin_memory: true
+num_workers: 4
+
+# bsz
+bsz: 16
+val_bsz: ${.bsz}
+test_bsz: ${.bsz}
+eff_bsz: ${.bsz}
+
+# train/val/test split
+train_val_split: ??? # a list. e.g., [0.9, 0.1] (10% for val)
+use_test_as_val: ??? # true if use test set as val set

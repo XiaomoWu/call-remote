@@ -1,0 +1,16 @@
+# our proposal!
+GradPerp:
+  _target_: src.weighting_methods.weighting_methods.GradPerp
+
+  # The following two args (pri_multi and beta) are deprecated, and only
+  # used in experiments BEFORE Oct 1, 2021
+  #   - pri_multi: ??? # multiplier for the primary task
+  #   - beta: ??? # for EMA of grads
+
+  M: ??? # multiplier for the primary task
+  qr_mode: ??? # "diag" or "row"
+  normalize_G: ??? # normalize G so that each col is of unit length
+  
+  beta1: 0.9  # 1st order grad smooth in EMA
+
+    

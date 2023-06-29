@@ -1,0 +1,45 @@
+# @package _global_
+
+defaults:
+  - _self_
+  - datamodule: default
+
+  - model: ???
+  - optimizer: adamw
+  - scheduler: null
+  - weighting_method: ???
+
+  - trainer: default
+  - callbacks: 
+    - model_checkpoint
+  - logger: wandb
+  - strategy: ???
+
+  - hydra: default
+  - sweeper: null
+  - experiment: null
+
+# mode (train/lr_finder)
+mode: train  # or lr_finder
+
+# window (will be overridden by experiment)
+seed: ???
+model_id: ???
+
+# log
+custom_loglevel: WARNING
+pl_loglevel: WARNING
+torch_loglevel: WARNING
+print_config: true
+
+# test/pred setting
+test_after_train: false
+test_metric: test/EV
+
+# user-specific directory (from .env)
+preemb_dir: ${oc.env:PREEMB_DIR}
+work_dir: ${oc.env:WORK_DIR} 
+ckpt_dir: ${oc.env:CKPT_DIR}
+data_dir: ${oc.env:DATA_DIR}
+log_dir: ${oc.env:LOG_DIR}
+

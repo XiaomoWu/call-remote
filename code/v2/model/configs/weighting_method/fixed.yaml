@@ -1,0 +1,4 @@
+Fixed:
+  _target_: src.weighting_methods.weighting_methods.Fixed
+
+  init_task_weights: ???

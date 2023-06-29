@@ -1,0 +1,35 @@
+# Model using BOTH financial ratios and texts
+_target_: src.models.models.FrTxtModel
+
+# --------------------
+# Unique to FrTxtModel
+# Args:
+#   max_doc_len: max N of sentences in a document (call)
+#   n_unfreeze_layers: N of unfreezed layers in the sentence encoder
+#   doc_pooling_method: method to pool sentence embeddings into a document embedding:
+#     'avgpool': mean
+#     'maxpool': max
+#     'transformer': use a transformer layer
+# --------------------
+
+# doc encoder
+doc_encoder_lr:
+doc_encoding_pooling_method:
+expand_wide_features: 
+
+# fc layers
+fc_lr:
+
+# others
+dropout: 0.3
+
+# also used by FrModel
+use_finratios: true
+use_mantxts: true
+use_auxcars: false
+use_auxvols: false
+use_inflow: false
+use_revision: false
+use_retail: false
+use_fund: false
+

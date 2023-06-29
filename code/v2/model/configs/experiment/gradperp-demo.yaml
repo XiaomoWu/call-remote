@@ -1,0 +1,64 @@
+# @package _global_
+defaults:
+  - override /datamodule: gradperp-demo
+  - override /model: gradperp-demo
+  - override /scheduler: null
+  - override /callbacks:
+    - model-checkpoint
+  - override /trainer: default
+  - override /logger: wandb
+
+  # key args!
+  - override /weighting_method: gradperp
+  - override /optimizer: adamw
+  - override /strategy: ddp
+  
+seed: 20
+mode: train
+model_id: gradperp-demo
+yqtr: '2019'
+window_size: 
+print_config: false
+test_after_train: false
+
+datamodule:
+  bsz: 16
+  val_bsz: 128
+  tasks: [pri, aux1, aux2]
+  # tasks: [pri]
+  num_workers: 2
+
+model:
+  hidden_size: 50
+  dropout: 0.3
+  
+optimizer:
+  lr: 0.005
+
+weighting_method:
+  # Fixed:
+  #   init_task_weights: [1.0]
+
+  GradPerp:
+    normalize_G: false
+    qr_mode: diag
+    M: 12
+    beta1: 0.9
+
+trainer:
+  devices: [0,1]
+  min_epochs: 50
+  max_epochs: 50
+  num_sanity_val_steps: 0
+  stochastic_weight_avg: false
+  precision: 16
+  val_check_interval: 1.0
+  limit_val_batches: 1.0
+
+callbacks:
+  model_checkpoint:
+    save_top_k: 0
+
+logger:
+  log_model: false
+  offline: false

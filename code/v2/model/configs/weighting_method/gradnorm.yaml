@@ -1,0 +1,3 @@
+# Chen et al., 2018
+GradNorm:
+  _target_: src.weighting_methods.weighting_methods.GradNorm

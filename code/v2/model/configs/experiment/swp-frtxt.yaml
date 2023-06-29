@@ -1,0 +1,180 @@
+program: /home/yu/OneDrive/Call/local-dev/code/v2/model/run.py
+# name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
+name: 'tsfmmq02+gradperp+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
+project: earnings-call-v2
+method: grid
+metric:
+  goal: maximize
+  name: val/EV
+
+parameters:
+  # -----------------
+  # override by group
+  # -----------------
+  datamodule:
+    value: frtxt
+  model: 
+    value: frtxtmq
+  optimizer:
+    value: adamw
+  weighting_method:
+    value: gradperp
+    # values: ['adamt', 'dwa', 'gradcos', 'uncert', 'olaux']  # ['adamt', 'dwa', 'gradcos', 'uncert', 'olaux'], gradnorm larger memeory requirement
+
+  trainer:
+    value: default
+  callbacks:
+    value: [rich-progress-bar, model-checkpoint]
+  strategy:
+    value: deepspeed
+  logger:
+    value: wandb
+
+  # -------------------
+  # override individual
+  # -------------------
+  seed: 
+    values: [985]
+  model_id:
+    value: ${datamodule.split_id}
+  print_config:
+    value: false
+  test_after_train:
+    value: true
+
+
+  # ---------- datamodule -------------
+  datamodule.tx_df_name:
+    value: tx_v2_02.2
+  datamodule.num_workers:
+    value: 8
+  datamodule.bsz:
+    value: 16
+  datamodule.tasks:
+    # value: ['car_c5_call_0_21_std', 'car_c5_call_0_3_std']  # debug
+    # value: ['car_c5_call_0_21_std']  # aux00
+    # value: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std', 'ivol_call_0_21_std']  # "aux05.2"
+    # value: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_0_90_std', 'revision_scaled_by_price_90_std']  # "aux03"
+    # value: ['car_dgtw_call_0_21_std', 'cbr_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_0_90_std', 'revision_scaled_by_price_90_std']  # "aux06"
+    # value: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr1_0_90_std', 'revision_scaled_by_price_90_std']  # "aux03.2"
+    # value: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std']  # "aux03.3"
+    # value: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # "aux07"
+    # value: ['car_dgtw_call_0_21_std', 'demand_retail_3_std', 'revision_scaled_by_price_90_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std']  # "aux07.2"
+    value: ['car_c5_call_0_21_std', 'car_c5_call_0_0_std', 'car_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux08
+    # value: ['bhar_c5_call_0_21_std', 'bhar_c5_call_0_0_std', 'bhar_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux09
+    # values: [
+    #   ['car_c5_call_0_3_std', 'car_c5_call_0_0_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std'],
+    #   ['car_c5_call_0_42_std', 'car_c5_call_0_0', 'car_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std'],
+    #   ['car_c5_call_0_63_std', 'car_c5_call_0_0', 'car_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']
+    # ]  # aux08.2/08.3/08.4
+    # values: [['car_c5_call_0_21_std'], ['car_c5_call_0_0_std'], ['car_c5_call_0_3_std'], ['fund_0_90_std'], ['inst_tr2_0_90_std'], ['revision_scaled_by_price_90_std'], ['demand_retail_3_std']]  # aux difficulty
+  datamodule.split_df_name:
+    value: split_rollqtr
+  datamodule.split_id:
+    # values: ['08q1-09q4/10q1','08q2-10q1/10q2']  # debug
+    values: ['08q1-09q4/10q1','08q2-10q1/10q2','08q3-10q2/10q3','08q4-10q3/10q4','09q1-10q4/11q1','09q2-11q1/11q2','09q3-11q2/11q3','09q4-11q3/11q4','10q1-11q4/12q1','10q2-12q1/12q2','10q3-12q2/12q3','10q4-12q3/12q4','11q1-12q4/13q1','11q2-13q1/13q2','11q3-13q2/13q3','11q4-13q3/13q4','12q1-13q4/14q1','12q2-14q1/14q2','12q3-14q2/14q3','12q4-14q3/14q4','13q1-14q4/15q1','13q2-15q1/15q2','13q3-15q2/15q3','13q4-15q3/15q4','14q1-15q4/16q1','14q2-16q1/16q2','14q3-16q2/16q3','14q4-16q3/16q4','15q1-16q4/17q1','15q2-17q1/17q2','15q3-17q2/17q3','15q4-17q3/17q4','16q1-17q4/18q1','16q2-18q1/18q2','16q3-18q2/18q3','16q4-18q3/18q4','17q1-18q4/19q1','17q2-19q1/19q2','17q3-19q2/19q3','17q4-19q3/19q4','18q1-19q4/20q1','18q2-20q1/20q2','18q3-20q2/20q3','18q4-20q3/20q4','19q1-20q4/21q1','19q2-21q1/21q2','19q3-21q2/21q3','19q4-21q3/21q4']  # rollqtr
+  datamodule.train_val_split:
+    value: [1, 0]
+  datamodule.use_test_as_val:
+    value: true
+  datamodule.max_doc_len:
+    value: 512
+  datamodule.dataset_txt_return_type:
+    value: preemb
+  datamodule.datamodule_txt_return_type:
+    value: padded_tensor  # "padded_tensor" (for tsfm), "packed_tensor" (for rnn)
+  datamodule.preemb_dir:
+    value: ${preemb_dir}
+
+  # --------- model -----------
+  # model.pretrained_sent_encoder_name:
+  #   value:
+  # model.unfreeze_sent_encoder_embedding:
+  #   value: 
+  # model.n_unfreezed_sent_encoder_layers:
+  #   value: 
+  # model.sent_encoder_lr:
+  #   value:
+
+  model.dropout:
+    value: 0.1
+  model.doc_encoder_lr:  # only used for non-MQ model
+    value: 1e-4  
+  model.fc_lr:  # only used for non-MQ model
+    value: 1e-4  
+  model.doc_encoding_pooling_method:
+    value: transformer_avg  # "transformer_avg" (enabled), "transformer_cls", "gru"
+  model.expand_wide_features:
+    value: true
+  model.lr_M:  # only used for learnable M
+    value: 0.1
+
+  # model.tokenizer_cfg:
+  #   value:
+  
+  model.use_finratios:
+    value: true
+  model.use_mantxts:
+    value: true
+
+  optimizer.lr:
+    # value: 1e-5
+    value: 1e-4
+    # values: [1e-5, 1e-4]
+
+  # ---------- weighting method ----------
+
+  # weighting_method.Fixed.init_task_weights:
+  #   value: [1.]
+    # value: [1.0, 1, 1, 1, 1, 1, 1]
+
+  weighting_method.GradPerp.M:
+    # value: 16
+    values: [1, 8, 16]  # [1, 4, 8, 12, 20, 24]
+  weighting_method.GradPerp.qr_mode:
+    value:  diag
+  weighting_method.GradPerp.beta1:
+    value: 0.95
+  weighting_method.GradPerp.normalize_G:
+    value: false
+
+  # -------- trainer ------------
+  trainer.min_epochs: 
+    value: 11
+  trainer.max_epochs:
+    value: 11
+  trainer.num_sanity_val_steps:
+    value: 0
+  trainer.precision:
+    value: 16-mixed
+
+  # --------- strategy -------------
+  strategy.stage:
+    value: 2
+  strategy.offload_optimizer:
+    value: false
+  strategy.offload_parameters:
+    value: false
+  strategy.offload_optimizer_device:
+    value: cpu
+  strategy.cpu_checkpointing:
+    value: false
+
+  strategy.allgather_bucket_size:
+    value: 6e8
+  strategy.reduce_bucket_size:
+    value: 6e8
+  
+  strategy.logging_level:
+    value: 40
+  strategy.logging_batch_size_per_gpu:
+    value: 1
+
+  # callbacks
+  callbacks.model_checkpoint.save_top_k: 
+    value: 1
+
+command:
+  - ${interpreter}
+  - ${program}
+  - ${args_no_hyphens}

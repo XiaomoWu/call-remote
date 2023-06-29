@@ -1,0 +1,2 @@
+_target_: colossalai.nn.optimizer.HybridAdam
+lr: 3e-4

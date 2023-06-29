@@ -1,0 +1,4 @@
+_target_: deepspeed.ops.adam.FusedAdam
+adam_w_mode: true
+weight_decay: 0.01
+lr: 3e-4

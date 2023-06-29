@@ -1,0 +1,3 @@
+_target_: deepspeed.runtime.fp16.onebit.adam.OnebitAdam
+lr: 3e-4
+comm_backend_name: nccl

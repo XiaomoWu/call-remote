@@ -1,0 +1,3 @@
+_target_: lightning.pytorch.plugins.DDPPlugin
+
+find_unused_parameters: true

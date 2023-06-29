@@ -1,0 +1,7 @@
+Uncert:
+  _target_: src.weighting_methods.weighting_methods.Uncert
+
+  # 'plus1' or 'no_plus1'
+  #   - 'no_plus1' is the original paper (Kendall 2018)
+  #   - 'plus1' is an variant in paper 
+  uncert_mode: no_plus1 

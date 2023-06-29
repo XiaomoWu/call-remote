@@ -1,0 +1,136 @@
+# @package _global_
+defaults:
+  - override /datamodule: frtxt
+  - override /model: frtxtmq
+  - override /scheduler:
+  - override /callbacks:
+    # - wandb
+    # - early-stop
+    - rich-progress-bar
+    - model-checkpoint
+  - override /trainer: default
+  - override /logger: wandb
+
+  # key args!
+  - override /weighting_method: gradperp  # fixed, gradperp
+  - override /optimizer: adamw  # "adamw", "cpu-adam" or "fused-adam"
+  - override /strategy: deepspeed  # "deepspeed", "ddp" or "ddp-sharded"
+  
+seed: 985
+
+model_id: ${datamodule.split_id}
+
+print_config: false
+test_after_train: true
+custom_loglevel: WARNING
+pl_loglevel: WARNING
+torch_loglevel: WARNING
+
+
+datamodule:
+  tx_df_name: tx_v2_02.2
+  split_df_name: split_rollqtr
+  split_id: 18q1-19q4/20q1  # 08q2-10q1/10q2, 15q2-17q1/17q2
+
+  bsz: 16  # default 16
+  val_bsz: 16  # default 16
+  num_workers: 8
+  # tasks: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux07
+  tasks: ['car_c5_call_0_21_std', 'car_c5_call_0_0_std', 'car_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux08
+  # tasks: ['car_c5_call_0_21_std', 'car_c5_call_0_0_std', 'fund_0_90_std']
+  # tasks: ['fund_0_90_std']  # aux00
+
+  # -----------
+  # input data
+  # -----------
+  max_doc_len: 512
+  dataset_txt_return_type: preemb  # "preemb"
+  datamodule_txt_return_type: padded_tensor  # "padded_tensor" (for tsfm), "packed_tensor" (for rnn)
+  preemb_dir: ${preemb_dir}
+
+  # ----------------
+  # train/test split
+  # ----------------
+  use_test_as_val: true
+  train_val_split: [1, 0]
+  
+model:
+  # -----------------------------------------
+  # config: doc encoder (not used in MQModel)
+  # -----------------------------------------
+  doc_encoder_lr: 1e-4  # 1e-5
+  doc_encoding_pooling_method: transformer_avg  # "transformer_avg", "transformer_cls", "gru"
+  expand_wide_features: true
+
+  # ----------------------------------------
+  # config: fc layers  (not used in MQModel)
+  # ----------------------------------------
+  # fc_lr: 1e-5
+  fc_lr: 1e-4
+
+  # -------------------
+  # config: learnable M
+  # -------------------
+  lr_M: 0.1
+
+  # ---------------------
+  # config: others inputs
+  # ---------------------
+  dropout: 0.1
+
+  use_finratios: true
+  use_mantxts: true
+
+  use_auxcars: false
+  use_auxvols: false
+  
+  use_fund: false
+  use_revision: false
+  use_retail: false
+
+weighting_method:
+  # Fixed:
+  #   init_task_weights: [1., 1, 1]
+
+  GradPerp:
+    normalize_G: false
+    qr_mode: diag
+    M: 16  # -1: learnable, >0: fixed
+    beta1: 0.95
+
+optimizer:
+  lr: 1e-4
+
+trainer:
+  min_epochs: 2
+  max_epochs: 2
+  num_sanity_val_steps: 0
+  precision: 16-mixed
+  profiler: null
+
+  limit_train_batches: 1.0
+  limit_val_batches: 1.0
+  val_check_interval: 1.0
+  # check_val_every_n_epoch: 1
+  detect_anomaly: false
+
+strategy:
+  stage: 2
+  offload_optimizer: false
+  offload_optimizer_device: cpu
+  offload_parameters: false
+  offload_params_device: cpu
+  cpu_checkpointing: false
+  
+  allgather_bucket_size: 6e8
+  reduce_bucket_size: 6e8
+
+  partition_activations: false
+  logging_batch_size_per_gpu: 1
+  logging_level: 40  # 40: ERROR, 30: WARNING 
+
+callbacks:
+  model_checkpoint:
+    save_top_k: 1
+  # early_stop:
+  #   patience: 2

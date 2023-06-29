@@ -1,0 +1,9 @@
+# Toy DataModule
+_target_: src.datamodules.datamodules.STSDataModule
+
+bsz: 8
+eff_bsz: ${.bsz}
+tasks: []  # First ele must be 'Tible', second optinal is 'Headline'
+
+n_mantxts: 0
+n_finratios: 0 

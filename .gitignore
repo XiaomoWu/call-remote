@@ -1,0 +1,60 @@
+# ignored folders
+wandb
+__pycache__
+/.hydra
+/.ipynb_checkpoints
+/.tmp
+/.vector_cache
+/.vscode
+/checkpoints
+/local-dev/checkpoints
+/data
+/lightning_logs
+/logs
+/log
+/writing
+
+# Some folders in "/code"
+code/v1
+code/v2/archive
+code/v2/data
+code/v2/eval
+
+# Ignore files by ext or name
+*.ckpt
+*.txt
+*.rds
+*.xlsx
+*.csv
+*.html
+*.feather
+*.tgz
+*.json
+*.mtx
+*.pa
+*.parquet
+*.pkl
+*.png
+*.pt
+*.sas7bdat
+*.spacy
+*.tmp
+*.pdf
+*.insyncdl
+*.zip
+0.ipynb
+0.py
+ddp.log
+
+# MacOS system files
+.DS_Store
+._.*
+
+# deepspeed files
+train_ddp_process*
+
+# other ignored files
+jsconfig.json
+pyrightconfig.json
+note.ipynb
+

@@ -1,0 +1,22 @@
+# DataModule with ONLY financial ratios
+defaults:
+  - fr
+
+_target_: src.datamodules.datamodules.FrTxtDataModule
+
+# Unique to Text
+# Args:
+#     max_doc_len: max number of sentences (including md and qa) in a doc
+#     datamodule_txt_return_type: usually "preemb"
+
+max_doc_len: ???
+dataset_txt_return_type: ???
+datamodule_txt_return_type: ???
+preemb_dir: ${preemb_dir}
+
+# split
+split_df_name: ???
+split_id: ???
+
+# bsz
+bsz: 64

@@ -1,0 +1,4 @@
+# Navon et al., (2021)
+AuxiLearn:
+  _target_: src.weighting_methods.weighting_methods.AuxiLearn
+

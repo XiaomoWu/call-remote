@@ -1,0 +1,6 @@
+# output paths for hydra logs
+run:
+  dir: ${oc.env:LOG_DIR}/runs/${model_id}
+sweep:
+  dir: ${oc.env:LOG_DIR}/multiruns/${model_id}
+  subdir: ${hydra.job.num}-${hydra.job.override_dirname}

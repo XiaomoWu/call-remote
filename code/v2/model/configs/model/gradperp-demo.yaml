@@ -1,0 +1,5 @@
+# Model that only uses financial ratios
+_target_: src.models.models.GradPerpDemoModel
+
+hidden_size: 50
+dropout: 0.3

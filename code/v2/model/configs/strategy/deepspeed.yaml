@@ -1,0 +1,23 @@
+# ----------------------
+# DeepSpeed come to the rescue
+#     - stage=2 is enough even for bert-large with bsz=64, so don't need to use stage=3.
+# ----------------------
+
+_target_: lightning.pytorch.strategies.deepspeed.DeepSpeedStrategy
+
+stage: 2
+offload_optimizer: true
+offload_optimizer_device: cpu
+
+offload_parameters: true
+offload_params_device: cpu
+ 
+cpu_checkpointing: false
+partition_activations: false
+
+pin_memory: true
+allgather_bucket_size: 5e7
+reduce_bucket_size: 5e7
+
+logging_batch_size_per_gpu: 1
+logging_level: 40  # 40: ERROR, 30: WARNING 

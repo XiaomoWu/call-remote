@@ -1,0 +1,6 @@
+# Toy DataModule
+_target_: src.datamodules.datamodules.GradPerpDemoDataModule
+
+bsz: 8
+eff_bsz: ${.bsz}
+tasks: ['pri', 'aux1', 'aux2']  # place holder, non-effective
