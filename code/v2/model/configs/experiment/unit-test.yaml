@@ -12,7 +12,7 @@ defaults:
   - override /logger: wandb
 
   # key args!
-  - override /weighting_method: gradperp  # fixed, gradperp
+  - override /weighting_method: fixed  # fixed, gradperp
   - override /optimizer: adamw  # "adamw", "cpu-adam" or "fused-adam"
   - override /strategy: deepspeed  # "deepspeed", "ddp" or "ddp-sharded"
   
@@ -32,8 +32,8 @@ datamodule:
   split_df_name: split_rollqtr
   split_id: 08q3-10q2/10q3  # 08q2-10q1/10q2, 15q2-17q1/17q2
 
-  bsz: 16  # default 16
-  val_bsz: 16  # default 16
+  bsz: 32  # default 16
+  val_bsz: 32  # default 16
   num_workers: 8
   # tasks: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux07
   tasks: ['car_c5_call_0_21_std', 'car_c5_call_0_0_std', 'car_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux08
@@ -89,14 +89,14 @@ model:
   use_retail: false
 
 weighting_method:
-  # Fixed:
-  #   init_task_weights: [1., 1, 1]
+  Fixed:
+    init_task_weights: [1., 1, 1, 1, 1, 1, 1, 1]  # [1., 1, 1, 1, 1, 1, 1, 1]
 
-  GradPerp:
-    normalize_G: false
-    qr_mode: diag
-    M: 16  # -1: learnable, >0: fixed
-    beta1: 0.98
+  # GradPerp:
+  #   normalize_G: false
+  #   qr_mode: diag
+  #   M: 16  # -1: learnable, >0: fixed
+  #   beta1: 0.98
 
 optimizer:
   lr: 1e-4
