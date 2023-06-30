@@ -407,8 +407,10 @@ class GradPerp(WeightingMethod):
 
         self.qr_mode = qr_mode
 
+        # init task weights
         self.task_weights = torch.ones(n_tasks)/n_tasks
-        # self.task_weights[0] *= M
+        if M > 0:
+            self.task_weights[0] *= M
         self.task_weights = self.task_weights/self.task_weights.sum()
 
         self.max_epochs = max_epochs
@@ -422,13 +424,11 @@ class GradPerp(WeightingMethod):
         global_step = pl_module.global_step
 
         # wrap losses with log to scale
-        losses = torch.log(losses)
+        # losses = torch.log(losses)
 
-        # times the primary loss by M
+        # times the primary loss by M (only for learnable M)
         if self.M == -1:
             losses[0] *= pl_module.model.M**2  # M is learnable
-        else:
-            losses[0] *= self.M  # M is fixed
 
         # ------
         # get G
@@ -472,7 +472,7 @@ class GradPerp(WeightingMethod):
 
         # smooth task_weights
         # if global_step >= 100:
-        if global_step >= 10:
+        if global_step >= 5:
 
             task_weights = self._qr(G, pl_module)
 
@@ -489,6 +489,8 @@ class GradPerp(WeightingMethod):
         # ---------------------------
         # backward for model params
         # ---------------------------
+        if self.M > 0:
+            self.task_weights[0] *= self.M
         self.task_weights /= self.task_weights.sum()
 
         tot_loss = torch.sum(losses * self.task_weights)

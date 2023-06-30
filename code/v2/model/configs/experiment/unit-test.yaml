@@ -30,7 +30,7 @@ torch_loglevel: WARNING
 datamodule:
   tx_df_name: tx_v2_02.2
   split_df_name: split_rollqtr
-  split_id: 18q1-19q4/20q1  # 08q2-10q1/10q2, 15q2-17q1/17q2
+  split_id: 08q3-10q2/10q3  # 08q2-10q1/10q2, 15q2-17q1/17q2
 
   bsz: 16  # default 16
   val_bsz: 16  # default 16
@@ -96,14 +96,14 @@ weighting_method:
     normalize_G: false
     qr_mode: diag
     M: 16  # -1: learnable, >0: fixed
-    beta1: 0.95
+    beta1: 0.98
 
 optimizer:
   lr: 1e-4
 
 trainer:
-  min_epochs: 2
-  max_epochs: 2
+  min_epochs: 11
+  max_epochs: 11
   num_sanity_val_steps: 0
   precision: 16-mixed
   profiler: null

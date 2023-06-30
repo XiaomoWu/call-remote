@@ -750,17 +750,17 @@ class FrTxtMQModel(FrTxtModel):
 
         # final fc output layers
         # method 1: each task has its own fc_output
-        # self.fc_output = nn.ModuleList(
-        #     [
-        #         nn.Linear(2 * d_model + self.n_enhanced_wide_features, 1)
-        #         for i in range(n_tasks)
-        #     ]
-        # )
+        self.fc_output = nn.ModuleList(
+            [
+                nn.Linear(2 * d_model + self.n_enhanced_wide_features, 1)
+                for i in range(n_tasks)
+            ]
+        )
 
         # method 2: all tasks share the same fc_output
-        self.fc_output = nn.Linear(
-            n_tasks * (2 * d_model + self.n_enhanced_wide_features), n_tasks
-        )
+        # self.fc_output = nn.Linear(
+        #     n_tasks * (2 * d_model + self.n_enhanced_wide_features), n_tasks
+        # )
 
         # A learnable "M" for GradPerp (may not be used)
         self.M = nn.Parameter(torch.tensor(1.0))
@@ -858,19 +858,19 @@ class FrTxtMQModel(FrTxtModel):
             # final_features = torch.cat(final_features, dim=1)  # (B, n_task * (2D+wide_features))
 
         # final fc output layers
-        """
         # Method 1: each task has its own fc layer
         x = [
             fc(feat) for fc, feat in zip(self.fc_output, final_features)
         ]  # list of (B, 1)
         y = torch.cat(x, dim=1)  # (B, n_tasks)
-        """
 
+        """
         # Method 2: shared fc layers
         final_features = torch.cat(
             final_features, dim=1
         )  # (B, n_task * (2D+wide_features))
         y = self.fc_output(final_features)  # (B, n_tasks)
+        """
 
         return y
 
@@ -886,10 +886,11 @@ class FrTxtMQModel(FrTxtModel):
                 if param.requires_grad
                 and (
                     # method 1: each layer has its own fc layer
-                    # ("enc_dec_md_list.0.decoder.ffn" in name)
-                    # or ("enc_dec_qa_list.0.decoder.ffn" in name)
+                    ("enc_dec_md_list.0.decoder.ffn" in name)
+                    or ("enc_dec_qa_list.0.decoder.ffn" in name)
                     # method 2: shared fc layers
-                    "fc_output" in name
+                    # "fc_output"
+                    # in name
                 )
             ]
             if self.weighting_method_name

@@ -1,6 +1,6 @@
 program: /home/yu/OneDrive/Call/local-dev/code/v2/model/run.py
-# name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
-name: 'tsfmmq02+gradperp+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
+name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
+# name: 'tsfmmq+gradperp03.m=16+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
 project: earnings-call-v2
 method: grid
 metric:
@@ -129,12 +129,12 @@ parameters:
     # value: [1.0, 1, 1, 1, 1, 1, 1]
 
   weighting_method.GradPerp.M:
-    # value: 16
-    values: [1, 8, 16]  # [1, 4, 8, 12, 20, 24]
+    value: 16
+    # values: [1, 8, 16]  # [1, 4, 8, 12, 20, 24]
   weighting_method.GradPerp.qr_mode:
     value:  diag
   weighting_method.GradPerp.beta1:
-    value: 0.95
+    value: 0.98
   weighting_method.GradPerp.normalize_G:
     value: false
 

@@ -2,7 +2,6 @@ import copy
 import hydra
 import logging
 import lightning.pytorch as pl
-import torch
 
 from .models.models import MtlModel
 from omegaconf import DictConfig
