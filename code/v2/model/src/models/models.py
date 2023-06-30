@@ -886,8 +886,8 @@ class FrTxtMQModel(FrTxtModel):
                 if param.requires_grad
                 and (
                     # method 1: each layer has its own fc layer
-                    ("enc_dec_md_list.0.decoder.ffn" in name)
-                    or ("enc_dec_qa_list.0.decoder.ffn" in name)
+                    ("enc_dec_md_list.0.decoder" in name)
+                    or ("enc_dec_qa_list.0.decoder" in name)
                     # method 2: shared fc layers
                     # "fc_output"
                     # in name
