@@ -8,6 +8,6 @@ min_epochs: ???
 max_epochs: ???
 num_sanity_val_steps: 2
 overfit_batches: 0.0
-precision: 16
+precision: ???
 val_check_interval: 1.0
 detect_anomaly: false
