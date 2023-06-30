@@ -22,7 +22,6 @@ code/v2/eval
 
 # Ignore files by ext or name
 *.ckpt
-*.txt
 *.rds
 *.xlsx
 *.csv
