@@ -1,4 +1,4 @@
-program: /home/yu/OneDrive/Call/local-dev/code/v2/model/run.py
+program: /home/xliu419/call-remote/code/v2/model/run.py
 # name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
 # name: '(sol)tsfmmq03.tmp+gradperp03.m={16,32}+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
 name: '(sol) Test'
@@ -127,8 +127,8 @@ parameters:
   # ---------- weighting method ----------
 
   weighting_method.Fixed.init_task_weights:
-    value: [1.]
-    # value: [1.0, 1, 1, 1, 1, 1, 1]
+    # value: [1.]
+    value: [1.0, 1, 1, 1, 1, 1, 1]
 
   # weighting_method.GradPerp.M:
     # value: 16
