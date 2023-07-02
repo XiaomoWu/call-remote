@@ -106,7 +106,7 @@ trainer:
   min_epochs: 11
   max_epochs: 11
   num_sanity_val_steps: 0
-  precision: bf16
+  precision: 16-mixed
   profiler: null
 
   limit_train_batches: 1.0
