@@ -18,7 +18,7 @@ parameters:
   optimizer:
     value: adamw
   weighting_method:
-    value: fixed
+    value: gradperp
     # values: ['adamt', 'dwa', 'gradcos', 'uncert', 'olaux']  # ['adamt', 'dwa', 'gradcos', 'uncert', 'olaux'], gradnorm larger memeory requirement
 
   trainer:
