@@ -687,7 +687,7 @@ class FrTxtMQModel(FrTxtModel):
         weighting_method_name,
         datamodule_cfg,
         mq_enc_dec_times=1,
-        qsz=128,  # length of task-specific queries, default 48
+        qsz=48,  # length of task-specific queries, default 48
         **kwargs,
     ):
         """Args:
@@ -1150,7 +1150,7 @@ class MQQlearn(nn.Module):
 class MQMlp(nn.Module):
     """The MLP block in a MQ encoder/decoder (residual connection is not included!)"""
 
-    def __init__(self, d_model, hidden_features=2048, drop=0.1):
+    def __init__(self, d_model, hidden_features=768, drop=0.1):
         super().__init__()
         self.fc1 = nn.Linear(d_model, hidden_features)
         self.act = nn.GELU()
