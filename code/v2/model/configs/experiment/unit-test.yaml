@@ -12,7 +12,7 @@ defaults:
   - override /logger: wandb
 
   # key args!
-  - override /weighting_method: fixed  # fixed, gradperp
+  - override /weighting_method: gradperp  # fixed, gradperp
   - override /optimizer: adamw  # "adamw", "cpu-adam" or "fused-adam"
   - override /strategy: deepspeed  # "deepspeed", "ddp" or "ddp-sharded"
   
@@ -89,22 +89,22 @@ model:
   use_retail: false
 
 weighting_method:
-  Fixed:
-    init_task_weights: [1., 1, 1, 1, 1, 1, 1]  # [1., 1, 1, 1, 1, 1, 1]
+  # Fixed:
+  #   init_task_weights: [1., 1, 1, 1, 1, 1, 1]  # [1., 1, 1, 1, 1, 1, 1]
 
-  # GradPerp:
-  #   normalize_G: false
-  #   qr_mode: diag
-  #   M: 16  # -1: learnable, >0: fixed
-  #   beta1: 0.98
+  GradPerp:
+    normalize_G: false
+    qr_mode: diag
+    M: 16  # -1: learnable, >0: fixed
+    beta1: 0.98
 
 optimizer:
   lr: 1e-4
 
 trainer:
   devices: [0]
-  min_epochs: 3
-  max_epochs: 3
+  min_epochs: 1
+  max_epochs: 1
   num_sanity_val_steps: 0
   precision: 16-mixed
   profiler: null
