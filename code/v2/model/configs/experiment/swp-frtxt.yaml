@@ -1,4 +1,4 @@
-program: ${oc.env:WORK_DIR}/code/v2/model/run.py
+program: /home/ubuntu/Call/call-remote/code/v2/model/run.py
 # name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
 name: '(lam)tsfmmq+gradperp03.m=16+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
 project: earnings-call-v2
