@@ -49,7 +49,7 @@ parameters:
   datamodule.tx_df_name:
     value: tx_v2_02.2
   datamodule.num_workers:
-    value: 8
+    value: 2
   datamodule.bsz:
     value: 32
   datamodule.tasks:
@@ -127,13 +127,13 @@ parameters:
 
   # ---------- weighting method ----------
 
-  weighting_method.Fixed.init_task_weights:
+  # weighting_method.Fixed.init_task_weights:
     # value: [1.]
     # value: [1., 1, 1, 1, 1, 1, 1]
 
   weighting_method.GradPerp.M:
     # value: 16
-    values: [1, 4, 8, 16]  # [1, 4, 8, 12, 20, 24]
+    values: [16]  # [1, 4, 8, 12, 20, 24]
   weighting_method.GradPerp.qr_mode:
     value: diag
   weighting_method.GradPerp.beta1:
@@ -142,6 +142,8 @@ parameters:
     value: false
 
   # -------- trainer ------------
+  trainer.devices:
+    value: [0]
   trainer.min_epochs: 
     value: 11
   trainer.max_epochs:
@@ -164,9 +166,9 @@ parameters:
     value: false
 
   strategy.allgather_bucket_size:
-    value: 6e8
+    value: 1e9
   strategy.reduce_bucket_size:
-    value: 6e8
+    value: 1e9
   
   strategy.logging_level:
     value: 40
@@ -175,7 +177,7 @@ parameters:
 
   # callbacks
   callbacks.model_checkpoint.save_top_k: 
-    value: 1
+    value: -1
 
 command:
   - ${interpreter}
