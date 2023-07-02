@@ -687,7 +687,7 @@ class FrTxtMQModel(FrTxtModel):
         weighting_method_name,
         datamodule_cfg,
         mq_enc_dec_times=1,
-        qsz=48,  # length of task-specific queries, default 48
+        qsz=128,  # length of task-specific queries, default 48
         **kwargs,
     ):
         """Args:
@@ -886,8 +886,8 @@ class FrTxtMQModel(FrTxtModel):
                 if param.requires_grad
                 and (
                     # method 1: each layer has its own fc layer
-                    ("enc_dec_md_list.0.decoder" in name)
-                    or ("enc_dec_qa_list.0.decoder" in name)
+                    ("enc_dec_md_list.0.decoder.ffn" in name)
+                    or ("enc_dec_qa_list.0.decoder.ffn" in name)
                     # method 2: shared fc layers
                     # "fc_output"
                     # in name
@@ -1150,7 +1150,7 @@ class MQQlearn(nn.Module):
 class MQMlp(nn.Module):
     """The MLP block in a MQ encoder/decoder (residual connection is not included!)"""
 
-    def __init__(self, d_model, hidden_features=768, drop=0.1):
+    def __init__(self, d_model, hidden_features=2048, drop=0.1):
         super().__init__()
         self.fc1 = nn.Linear(d_model, hidden_features)
         self.act = nn.GELU()

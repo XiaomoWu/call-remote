@@ -1,7 +1,6 @@
 program: ${work_dir}/code/v2/model/run.py
 # name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
-# name: '(sol)tsfmmq03.tmp+gradperp03.m={16,32}+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
-name: '(sol) Test'
+name: '(lam)tsfmmq+gradperp03.m={16,32}+aux08+lr.1e-4:car_c5_call_0_21_std~frtxt@tx02.2,rollqtr'
 project: earnings-call-v2
 method: grid
 metric:
@@ -74,8 +73,8 @@ parameters:
   datamodule.split_df_name:
     value: split_rollqtr
   datamodule.split_id:
-    values: ['08q1-09q4/10q1','08q2-10q1/10q2']  # debug
-    # values: ['08q1-09q4/10q1','08q2-10q1/10q2','08q3-10q2/10q3','08q4-10q3/10q4','09q1-10q4/11q1','09q2-11q1/11q2','09q3-11q2/11q3','09q4-11q3/11q4','10q1-11q4/12q1','10q2-12q1/12q2','10q3-12q2/12q3','10q4-12q3/12q4','11q1-12q4/13q1','11q2-13q1/13q2','11q3-13q2/13q3','11q4-13q3/13q4','12q1-13q4/14q1','12q2-14q1/14q2','12q3-14q2/14q3','12q4-14q3/14q4','13q1-14q4/15q1','13q2-15q1/15q2','13q3-15q2/15q3','13q4-15q3/15q4','14q1-15q4/16q1','14q2-16q1/16q2','14q3-16q2/16q3','14q4-16q3/16q4','15q1-16q4/17q1','15q2-17q1/17q2','15q3-17q2/17q3','15q4-17q3/17q4','16q1-17q4/18q1','16q2-18q1/18q2','16q3-18q2/18q3','16q4-18q3/18q4','17q1-18q4/19q1','17q2-19q1/19q2','17q3-19q2/19q3','17q4-19q3/19q4','18q1-19q4/20q1','18q2-20q1/20q2','18q3-20q2/20q3','18q4-20q3/20q4','19q1-20q4/21q1','19q2-21q1/21q2','19q3-21q2/21q3','19q4-21q3/21q4']  # rollqtr
+    # values: ['08q1-09q4/10q1','08q2-10q1/10q2']  # debug
+    values: ['08q1-09q4/10q1','08q2-10q1/10q2','08q3-10q2/10q3','08q4-10q3/10q4','09q1-10q4/11q1','09q2-11q1/11q2','09q3-11q2/11q3','09q4-11q3/11q4','10q1-11q4/12q1','10q2-12q1/12q2','10q3-12q2/12q3','10q4-12q3/12q4','11q1-12q4/13q1','11q2-13q1/13q2','11q3-13q2/13q3','11q4-13q3/13q4','12q1-13q4/14q1','12q2-14q1/14q2','12q3-14q2/14q3','12q4-14q3/14q4','13q1-14q4/15q1','13q2-15q1/15q2','13q3-15q2/15q3','13q4-15q3/15q4','14q1-15q4/16q1','14q2-16q1/16q2','14q3-16q2/16q3','14q4-16q3/16q4','15q1-16q4/17q1','15q2-17q1/17q2','15q3-17q2/17q3','15q4-17q3/17q4','16q1-17q4/18q1','16q2-18q1/18q2','16q3-18q2/18q3','16q4-18q3/18q4','17q1-18q4/19q1','17q2-19q1/19q2','17q3-19q2/19q3','17q4-19q3/19q4','18q1-19q4/20q1','18q2-20q1/20q2','18q3-20q2/20q3','18q4-20q3/20q4','19q1-20q4/21q1','19q2-21q1/21q2','19q3-21q2/21q3','19q4-21q3/21q4']  # rollqtr
     # values: ['08q1-09q4/10q1','08q4-10q3/10q4','09q1-10q4/11q1','09q2-11q1/11q2','09q3-11q2/11q3','09q4-11q3/11q4','10q2-12q1/12q2','11q2-13q1/13q2','11q3-13q2/13q3','11q4-13q3/13q4','13q1-14q4/15q1','14q1-15q4/16q1','14q2-16q1/16q2','14q3-16q2/16q3','16q1-17q4/18q1','16q4-18q3/18q4','17q1-18q4/19q1','17q4-19q3/19q4','18q1-19q4/20q1','18q3-20q2/20q3','18q4-20q3/20q4','19q1-20q4/21q1','19q2-21q1/21q2','19q4-21q3/21q4']  # rollqtr, 24 random windows
   datamodule.train_val_split:
     value: [1, 0]
@@ -130,17 +129,17 @@ parameters:
 
   weighting_method.Fixed.init_task_weights:
     # value: [1.]
-    value: [1., 1, 1, 1, 1, 1, 1]
+    # value: [1., 1, 1, 1, 1, 1, 1]
 
-  # weighting_method.GradPerp.M:
+  weighting_method.GradPerp.M:
     # value: 16
-    # values: [16, 32]  # [1, 4, 8, 12, 20, 24]
-  # weighting_method.GradPerp.qr_mode:
-  #   value: diag
-  # weighting_method.GradPerp.beta1:
-  #   value: 0.98
-  # weighting_method.GradPerp.normalize_G:
-  #   value: false
+    values: [1, 4, 8, 16]  # [1, 4, 8, 12, 20, 24]
+  weighting_method.GradPerp.qr_mode:
+    value: diag
+  weighting_method.GradPerp.beta1:
+    value: 0.98
+  weighting_method.GradPerp.normalize_G:
+    value: false
 
   # -------- trainer ------------
   trainer.min_epochs: 
