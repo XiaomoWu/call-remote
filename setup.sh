@@ -11,16 +11,15 @@ rsync -hrtv /home/yu/OneDrive/Call/remote-dev/data -e "ssh -i .ssh/lambda.pem" u
 # system update
 sudo apt-get update && sudo apt-get dist-upgrade 
 
-# install python
-# sudo apt install python3.11-full
-# sudo apt install python3.11-dev
-# sudo apt install python3.11-venv
-# sudo apt install python3-pip
-
 
 # install packages
 python3 -m pip install --upgrade pip
-pip3 install -U wandb deepspeed python-dotenv hydra-core lightning pyarrow transformers
+pip3 install -U wandb deepspeed python-dotenv hydra-core lightning pyarrow transformers numexpr
+pip3 install protobuf==3.20  # v4.0 is incompatible with wandb
+
+# init wandb
+pip install -U click  # required for wandb, see https://community.wandb.ai/t/unable-to-login/4335/15?u=yuzhu
+
 
 # run unit-test
 cd ~/Call/call-remote
