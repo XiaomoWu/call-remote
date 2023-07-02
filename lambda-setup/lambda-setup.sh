@@ -28,3 +28,5 @@ python code/v2/model/run.py experiment=unit-test
 # run wandb sweep
 wandb sweep ~/Call/call-remote/code/v2/model/configs/experiment/swp-frtxt.yaml
 
+# download data from lambda to local
+# rsync -hrtv ubuntu@${ip}:~/call-remote/data ~/OneDrive/Call/remote-dev

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+ip="104.171.202.107"
+
+rsync -hrtv -e "ssh -i ~/.ssh/lambda.pem" \
+    ubuntu@${ip}:~/Call/call-remote/data/v2/eval/yt-temp/ \
+    ~/OneDrive/Call/local-dev/data/v2/eval/yt-temp-lambda
