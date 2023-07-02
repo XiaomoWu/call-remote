@@ -90,7 +90,7 @@ model:
 
 weighting_method:
   Fixed:
-    init_task_weights: [1., 1, 1, 1, 1, 1, 1, 1]  # [1., 1, 1, 1, 1, 1, 1, 1]
+    init_task_weights: [1., 1, 1, 1, 1, 1, 1]  # [1., 1, 1, 1, 1, 1, 1]
 
   # GradPerp:
   #   normalize_G: false
