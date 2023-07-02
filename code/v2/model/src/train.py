@@ -2,10 +2,11 @@ import copy
 import hydra
 import logging
 import lightning.pytorch as pl
+import shutil
 
 from .models.models import MtlModel
-from omegaconf import DictConfig
 from lightning.pytorch.callbacks import RichProgressBar, ModelSummary
+from omegaconf import DictConfig
 from typing import List
 
 
@@ -113,6 +114,9 @@ def train(cfg: DictConfig):
     # train/test OR find lr
     # ------------------------
     if cfg.mode == 'train':
+        # clear checkpoint dir
+        shutil.rmtree(cfg.get('ckpt_dir'))
+
         # train model
         trainer.fit(model, datamodule)
 
