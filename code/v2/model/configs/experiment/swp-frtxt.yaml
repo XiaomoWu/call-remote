@@ -102,9 +102,9 @@ parameters:
   model.dropout:
     value: 0.1
   model.doc_encoder_lr:  # only used for non-MQ model
-    value: 3e-4  
+    value: 1e-4  
   model.fc_lr:  # only used for non-MQ model
-    value: 3e-4  
+    value: 1e-4  
   model.doc_encoding_pooling_method:
     value: transformer_avg  # "transformer_avg" (enabled), "transformer_cls", "gru"
   model.expand_wide_features:
@@ -122,7 +122,7 @@ parameters:
 
   optimizer.lr:
     # value: 1e-5
-    value: 3e-4
+    value: 1e-4
     # values: [1e-5, 1e-4]
 
   # ---------- weighting method ----------
