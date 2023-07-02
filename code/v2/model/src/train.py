@@ -115,7 +115,7 @@ def train(cfg: DictConfig):
     # ------------------------
     if cfg.mode == 'train':
         # clear checkpoint dir
-        shutil.rmtree(cfg.get('ckpt_dir'))
+        shutil.rmtree(cfg.get('ckpt_dir'), ignore_errors=True)
 
         # train model
         trainer.fit(model, datamodule)
