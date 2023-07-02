@@ -26,5 +26,5 @@ cd ~/Call/call-remote
 python code/v2/model/run.py experiment=unit-test
 
 # run wandb sweep
-wandb sweep /Call/call-remote/code/v2/model/configs/experiment/swp-frtxt.yaml
+wandb sweep ~/Call/call-remote/code/v2/model/configs/experiment/swp-frtxt.yaml
 
