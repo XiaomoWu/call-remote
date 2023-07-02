@@ -34,7 +34,7 @@ datamodule:
 
   bsz: 32  # default 16
   val_bsz: 32  # default 16
-  num_workers: 4
+  num_workers: 2
   # tasks: ['car_dgtw_call_0_21_std', 'car_dgtw_call_0_0_std', 'car_dgtw_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux07
   tasks: ['car_c5_call_0_21_std', 'car_c5_call_0_0_std', 'car_c5_call_0_3_std', 'fund_0_90_std', 'inst_tr2_0_90_std', 'revision_scaled_by_price_90_std', 'demand_retail_3_std']  # aux08
   # tasks: ['car_c5_call_0_21_std', 'car_c5_call_0_0_std', 'fund_0_90_std']
