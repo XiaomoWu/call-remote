@@ -1,3 +1,4 @@
+# ----------- directories ----------
 # ignored folders
 wandb
 __pycache__
@@ -14,12 +15,16 @@ __pycache__
 /log
 /writing
 
+# python virtual env
+/py-env
+
 # Some folders in "/code"
 code/v1
 code/v2/archive
 code/v2/data
 code/v2/eval
 
+# ------- files ----------
 # Ignore files by ext or name
 *.ckpt
 *.rds
