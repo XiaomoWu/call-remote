@@ -128,7 +128,7 @@ parameters:
 
   weighting_method.Fixed.init_task_weights:
     # value: [1.]
-    value: [1.0, 1, 1, 1, 1, 1, 1]
+    value: [1., 1, 1, 1, 1, 1, 1]
 
   # weighting_method.GradPerp.M:
     # value: 16
