@@ -103,8 +103,8 @@ optimizer:
 
 trainer:
   devices: [0]
-  min_epochs: 1
-  max_epochs: 1
+  min_epochs: 2
+  max_epochs: 2
   num_sanity_val_steps: 0
   precision: 16-mixed
   profiler: null
