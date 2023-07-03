@@ -1,6 +1,6 @@
 program: /home/ubuntu/Call/call-remote/code/v2/model/run.py
 # name: "[pred_model]+[weighting]+[aux_code]:car_?_call_?_?_std~frtxt@[tx_id],roll???"
-name: '(lam) Test'
+name: '(sol) Test'
 project: earnings-call-v2
 method: grid
 metric:
@@ -23,8 +23,6 @@ parameters:
 
   trainer:
     value: default
-  trainer.devices:
-    value: [0]
   callbacks:
     value: [rich-progress-bar, model-checkpoint]
   strategy:
@@ -49,7 +47,7 @@ parameters:
   datamodule.tx_df_name:
     value: tx_v2_02.2
   datamodule.num_workers:
-    value: 2
+    value: 4
   datamodule.bsz:
     value: 32
   datamodule.tasks:
@@ -145,9 +143,9 @@ parameters:
   trainer.devices:
     value: [0]
   trainer.min_epochs: 
-    value: 15
+    value: 11
   trainer.max_epochs:
-    value: 15
+    value: 11
   trainer.num_sanity_val_steps:
     value: 0
   trainer.precision:
