@@ -1,7 +1,7 @@
 _target_: lightning.pytorch.Trainer
 
 accelerator: gpu
-devices: auto  # Train on one A100
+devices: auto 
 num_nodes: 1
 
 log_every_n_steps: 10
