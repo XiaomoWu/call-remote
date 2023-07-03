@@ -24,7 +24,7 @@ parameters:
   trainer:
     value: default
   trainer.devices:
-    value: [0,1]
+    value: [0]
   callbacks:
     value: [rich-progress-bar, model-checkpoint]
   strategy:
